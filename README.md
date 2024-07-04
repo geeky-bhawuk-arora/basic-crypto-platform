@@ -1,3 +1,3 @@
 # Basic Crypto Platform
 
-URL:- https://geeky-bhawuk-arora.github.io/basic-crypto-platform/
+URL:- https://basic-crypto-platform.onrender.com/
