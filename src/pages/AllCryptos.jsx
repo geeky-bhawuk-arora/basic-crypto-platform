@@ -6,6 +6,8 @@ import CryptoList from '../components/CryptoList';
 const AllCryptos = () => {
   const [coins, setCoins] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const getTrendingCoins = async () => {
@@ -13,7 +15,9 @@ const AllCryptos = () => {
         const data = await fetchTrendingCoins();
         setCoins(data);
       } catch (error) {
-        console.error('Error fetching trending coins:', error);
+        setError('Failed to fetch trending coins');
+      } finally {
+        setLoading(false);
       }
     };
     getTrendingCoins();
@@ -21,8 +25,16 @@ const AllCryptos = () => {
 
   const filteredCoins = coins.filter(coin => coin.item.name.toLowerCase().includes(searchTerm.toLowerCase()));
 
+  if (loading) {
+    return <div className="text-center text-xl">Loading...</div>;
+  }
+
+  if (error) {
+    return <div className="text-center text-xl text-red-500">{error}</div>;
+  }
+
   return (
-    <div>
+    <div className="p-4">
       <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       <CryptoList coins={filteredCoins} />
     </div>
