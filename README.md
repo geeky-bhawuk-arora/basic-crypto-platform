@@ -1,1 +1,1 @@
-# basic-crypto-platform
+# Basic Crypto Platform
